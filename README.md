@@ -8,7 +8,6 @@
 - checkpoint 目录
 - 运行说明
 
-原始代码文件保持不变；这里是单独复制出来的一份最终版 GitHub 风格项目目录。
 
 ## 目录结构
 
@@ -57,16 +56,9 @@ LARI-PGMamba/
 - dataset/utils.py
 - dataset/load_from_txt.py
 
-### 3.1 法庭科学似然比分支
 
-- forensic_lr/
-- scripts/build_forensic_splits.py
-- scripts/fit_feature_lr.py
-- scripts/evaluate_feature_lr.py
-- scripts/visualize_feature_lr.py
-- docs/forensic_feature_lr_design.md
 
-### 4. Checkpoint 目录
+### 3. Checkpoint 目录
 
 目前只保留 `checkpoints/` 目录本身，不预放权重。
 
@@ -98,12 +90,3 @@ python train.py --dataset all --epochs 50 --seed 111
 ```text
 python train.py --dataset all --data-root E:/your/data/root
 ```
-
-## 说明
-
-- 当前整理不会修改原始目录下的任何代码。
-- 新训练结果默认保存到 `runs/<seed>/`。
-- `checkpoints/` 预留给你后续自己放最终模型。
-- 当前训练入口只保留最终版本配置，不再区分中间实验版本。
-- 新增 `forensic_lr/` 独立包，用于做 12 维动态特征的可解释分数似然比分析，不影响现有深度训练分支。
-- 可视化脚本 `scripts/visualize_feature_lr.py` 可生成似然比曲线、Tippett 图、ROC/DET 图、分数分布图等常见法庭 LR 图形。
