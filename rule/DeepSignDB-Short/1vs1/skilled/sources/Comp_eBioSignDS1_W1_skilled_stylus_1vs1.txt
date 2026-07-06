@@ -1,0 +1,4 @@
+u0407_g_u170_s1_g1_b1_sign_w1_c_001.txt u0407_s_u170_s2_g1_b1_sign_w1_s_004.txt 1
+u0407_g_u170_s1_g1_b1_sign_w1_c_002.txt u0407_s_u170_s2_g1_b1_sign_w1_s_004.txt 1
+u0407_g_u170_s1_g1_b2_sign_w1_c_004.txt u0407_s_u170_s2_g1_b1_sign_w1_s_004.txt 1
+u0407_g_u170_s1_g1_b2_sign_w1_c_005.txt u0407_s_u170_s2_g1_b1_sign_w1_s_004.txt 1
