@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Length-Adaptive Feature Enhancement Module
+Length-Adaptive Feature Enhancement Module (V4)
 专注解决短签名问题
 
 核心思想：
@@ -136,7 +136,7 @@ class LocalDetailEnhancer(nn.Module):
 
 
 class MultiScaleTrendExtractor(nn.Module):
-    """多尺度趋势提取器。"""
+    """多尺度趋势提取器（保留自Stage1）"""
     def __init__(self, n_scales=3, window_sizes=None):
         super(MultiScaleTrendExtractor, self).__init__()
         
@@ -339,19 +339,12 @@ class LengthAdaptiveLoss(nn.Module):
         简单的平滑性损失
         """
         enhanced_residual = aux_outputs['enhanced_residual']
-        # 防止上游数值异常传递
-        enhanced_residual = torch.nan_to_num(enhanced_residual, nan=0.0, posinf=1e4, neginf=-1e4)
         
         # 残差时序平滑性（防止过度增强导致spike）
         diff = enhanced_residual[:, 1:] - enhanced_residual[:, :-1]
-        diff = torch.nan_to_num(diff, nan=0.0, posinf=1e4, neginf=-1e4)
         if mask is not None:
             valid_mask = mask[:, :-1] * mask[:, 1:]
-            denom = valid_mask.sum()
-            if denom.item() < 1:
-                smooth_loss = torch.tensor(0.0, device=enhanced_residual.device)
-            else:
-                smooth_loss = (diff.pow(2).mean(dim=-1) * valid_mask).sum() / (denom + 1e-8)
+            smooth_loss = (diff.pow(2).mean(dim=-1) * valid_mask).sum() / (valid_mask.sum() + 1e-8)
         else:
             smooth_loss = diff.pow(2).mean()
         
